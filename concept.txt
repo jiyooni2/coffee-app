@@ -1,0 +1,19 @@
+start : expo start
+
+App loading
+    원할때까지 앱이 로딩하는걸 막아주는 컴포넌트
+
+npm install expo-app-loading
+npm install expo-font
+
+Preload
+    유저가 앱으로 갔을 때 앱은 준비된 상태여야 함
+    preload contents : font, logo and so on
+
+loadAsync
+    require, or url
+
+React Navigation
+    npm install @react-navigation/native
+    expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+    npm install @react-navigation/stack
