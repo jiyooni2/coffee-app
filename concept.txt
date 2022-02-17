@@ -1,3 +1,39 @@
+React native
+    react but rendering to ios,android
+
+Expo
+    npx create-react-app : react 쉽게 시작, webpack등 set
+    expo역시 마찬가지, react application 쉽게 시작
+    react native용 create-react-app
+    
+    안드로이드, IOS를 맥,윈도우 모두에서 만들 수 있음
+    Expo SDK가 많은 기능을 제공
+    Expo Go : 핸드폰에서 앱 테스팅 가능
+    Expo CLI
+    Expo snack : 브라우저에서 돌아가는 snack
+    over the air update : 앱스토어를 스킵하는 업데이트
+        react native를 컴파일하면 js가 됨
+        핸드폰에 앱을 가진 유저들이 앱스토어에서 업데이트 하지 않고,
+        앱이 새로운 js파일을 다운로드하고 재시작하면 새로운 버전의 앱이 되는 것
+        expo는 내부적으로 항상 업데이트를 체크
+        원래대로라면, 빌드하고, 앱스토어에 올리고 앱스토어의 승인을 기다리는 등 시간 소요 큼
+
+    단점
+        네이티브 앱 코드와 섞여있는 경우, 사용 불가, react native CLI 사용
+            Xcode, android files에 접근해야 하는 경우 불가능
+        Expo SDK에 없는 게 필요한 경우, 사용 불가
+            bluetooth같은 경우 지원 안함
+        expo의 limitation에 대해서 인지하고 프로젝트 시작해야함
+        expo의 모든 API가 모두 최종 번들에 포함됨(사용하지 않는 API도)
+
+    expo eject
+        expo에서 만들거 만들고, eject해서 bluetooth 만들 수 있음
+        필요없는 일부 API도 없앨 수 있음
+        리액트 네이티브 코드 사용 가능
+        
+Managed Workflow로 시작한 뒤에 eject
+Expo에서 어떤 네이티브 코드도 사용하면 안됨
+
 start : expo start
 
 App loading
@@ -17,3 +53,74 @@ React Navigation
     npm install @react-navigation/native
     expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
     npm install @react-navigation/stack
+
+stack navigator
+    앱 내에서 화면을 바꿀때, 스택 더미처럼 쌓여가는 것,
+    페이지가 바뀌는게 아님
+
+    Navigator를 Navigation Container로 감싸야함
+
+    prop : Navigation, route object
+    
+    Navigation에서는 goBack, push, pop 등 stack처럼 navigator를 사용 가능
+
+    stack.screen의 name이 route가 됨
+    screen comes to us
+
+configure the screen
+    Stack.Navigator props
+        initialRouteName
+        mode
+        headerMode
+        screenOptions : 모든 screen에 option 적용
+    Stack.Screen
+        options : only apply to the specific screen
+
+Dark mode   
+    react-native-appearance
+        유저의 모드에 따라서 설정하게 해줌
+    React와 마찬가지로 ThemeProvider 설정하면 됨
+
+React native의 css와 평범한 CSS와 살짝 설정이 다름
+    View에서 text-size를 해줘도 그 밑의 Text Component에 적용 X
+    Text에서 직접 설정해야 함
+
+TextInput
+    keyboard type등 여러가지 option이 있음
+    유저의 사용성에 집중하기
+
+useRef
+    Component에 ref prop 등록한 다음, 다른 컴포넌트에서 그 컴포넌트 사용 가능
+    current : 실제로 연결된 component를 알려줌
+
+useForm
+    no Form, no submit Event
+    =>use Button
+
+    in React, form에서 register
+    in native, register()을 통해서 등록해야함
+
+tunnel
+    make public url
+    외부에서 로컬에 접속 가능하게 해주는 터널프로그램
+    1. localtunnel
+        npx localtunnel --port 4000
+    2. ngrok
+
+hook의 수는 모든 렌더링에서 다 똑같아야 함
+    처음부터 모든 hook을 렌더링 해야함
+    모든 훅은 항상 렌더링 되어야 함
+
+useForm
+    getValues : value를 딱 한번 가져옴
+    watch : 실시간으로 value를 가져옴
+
+Tabs
+    import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+    메뉴같이 헤더나 바텀에 탭 만들수 있음
+    Stack과 사용법은 유사
+    navigator, screen 사용
+
+route prop
+    can get params
+    send params using navigation

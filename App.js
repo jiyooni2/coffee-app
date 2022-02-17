@@ -5,9 +5,19 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { Asset } from "expo-asset";
+import LoggedOutNav from "./navigators/LoggedOutNav";
+import { NavigationContainer, ThemeProvider } from "@react-navigation/native";
+import { Appearance } from "react-native";
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
+import client from "./apollo";
+import { AppRegistry } from "react-native";
+import { isLoggedInVar } from "./apollo";
+import LoggedInNav from "./navigators/LoggedInNav";
 
-export default function App() {
+function App() {
   const [loading, setLoading] = useState(true);
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
+
   const onFinish = () => setLoading(false);
   const preload = () => {
     const fontsToLoad = [Ionicons.font];
@@ -29,11 +39,17 @@ export default function App() {
       />
     );
   }
+
+  const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+    console.log(colorScheme);
+  });
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
+      </NavigationContainer>
+    </ApolloProvider>
   );
 }
 
@@ -45,3 +61,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default App;
