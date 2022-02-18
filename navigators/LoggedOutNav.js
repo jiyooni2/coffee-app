@@ -11,7 +11,6 @@ function LoggedOutNav() {
     <Stack.Navigator
       screenOptions={{
         headerBackTitleVisible: false,
-        headerTintColor: "black",
         headerTitle: () => false,
         headerTransparent: true,
         headerTintColor: "white",

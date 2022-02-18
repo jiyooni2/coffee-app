@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components/native";
-import { TouchableOpacity } from "react-native";
-import { logUserOut } from "../apollo";
 
 const Container = styled.View`
   align-items: center;
@@ -15,15 +13,12 @@ const Text = styled.Text`
   font-size: 50px;
 `;
 
-function Feed({ navigation }) {
+function Photo() {
   return (
     <Container>
-      <Text>Feed</Text>
-      <TouchableOpacity onPress={() => logUserOut()}>
-        <Text>Photo</Text>
-      </TouchableOpacity>
+      <Text>Photo</Text>
     </Container>
   );
 }
 
-export default Feed;
+export default Photo;
