@@ -18,7 +18,7 @@ const LOG_IN_MUTATION = gql`
 `;
 
 function Login({ route: { params } }) {
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const { register, handleSubmit, setValue, watch, getValues } = useForm({
     defaultValues: {
       password: params?.password,
       username: params?.username,
@@ -28,12 +28,12 @@ function Login({ route: { params } }) {
   const passwordRef = useRef();
 
   const onCompleted = async (data) => {
-    console.log(data);
+    const { username } = getValues();
     const {
       login: { ok, token },
     } = data;
     if (ok) {
-      await logUserIn(token);
+      await logUserIn(token, username);
     }
   };
 

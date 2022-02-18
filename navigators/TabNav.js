@@ -1,15 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Feed from "../screens/Feed";
 import React from "react";
-import Notifications from "./../screens/Notifications";
-import Profile from "./../screens/Profile";
-import Search from "./../screens/Search";
-import TabIcon from "./../components/nav/TabIcon";
+import TabIcon from "../components/nav/TabIcon";
 import SharedStackNav from "./SharedStackNav";
 
 const Tabs = createBottomTabNavigator();
 
-function LoggedInNav() {
+function TabNav() {
   return (
     <Tabs.Navigator
       screenOptions={{
@@ -25,7 +21,7 @@ function LoggedInNav() {
       }}
     >
       <Tabs.Screen
-        name="Feed"
+        name="Home"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             //color = ActiveTintColor
@@ -33,31 +29,7 @@ function LoggedInNav() {
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Feed" />}
-      </Tabs.Screen>
-
-      <Tabs.Screen
-        name="Notifications"
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            //color = ActiveTintColor
-            <TabIcon iconName={"heart"} color={color} focused={focused} />
-          ),
-        }}
-      >
-        {() => <SharedStackNav screenName="Notifications" />}
-      </Tabs.Screen>
-
-      <Tabs.Screen
-        name="Camera"
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            //color = ActiveTintColor
-            <TabIcon iconName={"camera"} color={color} focused={focused} />
-          ),
-        }}
-      >
-        {() => <SharedStackNav screenName="Camera" />}
+        {() => <SharedStackNav screenName="Home" />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -87,4 +59,4 @@ function LoggedInNav() {
   );
 }
 
-export default LoggedInNav;
+export default TabNav;

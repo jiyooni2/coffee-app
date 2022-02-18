@@ -9,14 +9,17 @@ import { setContext } from "@apollo/client/link/context";
 
 export const isLoggedInVar = makeVar(false);
 export const tokenVar = makeVar("");
+export const usernameVar = makeVar("");
 
-export const logUserIn = async (token) => {
+export const logUserIn = async (token, username) => {
+  console.log(token, username);
   await AsyncStorage.multiSet([
     ["token", token],
     ["loggedIn", "yes"],
   ]);
   isLoggedInVar(true);
   tokenVar(token);
+  usernameVar(username);
 };
 
 export const logUserOut = async () => {
@@ -26,20 +29,20 @@ export const logUserOut = async () => {
 };
 
 const httpLink = createHttpLink({
-  uri: "https://plastic-seahorse-87.loca.lt/graphql",
+  uri: "https://lovely-wombat-70.loca.lt/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      token: token ? tokenVar() : null,
+      token: tokenVar(),
     },
   };
 });
 
 const client = new ApolloClient({
-  uri: authLink.concat(httpLink),
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

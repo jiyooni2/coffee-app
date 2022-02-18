@@ -7,18 +7,25 @@ const Container = styled.View`
   flex: 1;
   background-color: black;
 `;
+const Logo = styled.Image`
+  max-width: 50%;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 20px;
+`;
 
 const Text = styled.Text`
   color: white;
   font-size: 50px;
 `;
 
-function Notifications() {
+function Home() {
   return (
     <Container>
-      <Text>Notifications</Text>
+      <Logo resizeMode="contain" source={require("../assets/logo.png")} />
+      <Text>Home</Text>
     </Container>
   );
 }
 
-export default Notifications;
+export default Home;

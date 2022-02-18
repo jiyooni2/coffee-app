@@ -5,14 +5,14 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { Asset } from "expo-asset";
-import LoggedOutNav from "./navigators/LoggedOutNav";
+import Home from "./screens/Home";
 import { NavigationContainer, ThemeProvider } from "@react-navigation/native";
 import { Appearance } from "react-native";
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import client, { tokenVar } from "./apollo";
 import { AppRegistry } from "react-native";
 import { isLoggedInVar } from "./apollo";
-import LoggedInNav from "./navigators/LoggedInNav";
+import TabNav from "./navigators/TabNav";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function App() {
@@ -58,7 +58,7 @@ function App() {
     <ApolloProvider client={client}>
       <StatusBar mode="auto"></StatusBar>
       <NavigationContainer>
-        {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
+        <TabNav />
       </NavigationContainer>
     </ApolloProvider>
   );
