@@ -8,6 +8,7 @@ import { isLoggedInVar, logUserOut, usernameVar } from "./../apollo";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useQuery, useReactiveVar } from "@apollo/client";
 import { gql } from "@apollo/client";
+import { ActivityIndicator } from "react-native";
 
 const Container = styled.View`
   align-items: center;
@@ -26,7 +27,7 @@ const Info = styled.Text`
 `;
 
 const SEE_USER_QUERY = gql`
-  query seeUser($username: String!) {
+  query ($username: String!) {
     seeUser(username: $username) {
       id
       username
@@ -51,18 +52,21 @@ function Profile() {
     },
   });
 
-  console.log(data);
+  console.log("logged", data);
+  console.log("logged", username);
 
   return isLoggedIn ? (
     <Container>
       <Text>Profile</Text>
-      {loading ? null : (
+      {loading ? (
+        <ActivityIndicator color="white" />
+      ) : (
         <>
-          <Info>{data.seeUser.username}</Info>
-          <Info>{data.seeUser.location}</Info>
-          <Info>{data.seeUser.name}</Info>
-          <Info>{data.seeUser.totalFollowers}</Info>
-          <Info>{data.seeUser.totalFollowing}</Info>
+          <Info>{data?.seeUser?.username}</Info>
+          <Info>{data?.seeUser?.location}</Info>
+          <Info>{data?.seeUser?.name}</Info>
+          <Info>{data?.seeUser?.totalFollowers}</Info>
+          <Info>{data?.seeUser?.totalFollowing}</Info>
         </>
       )}
 

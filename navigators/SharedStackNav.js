@@ -20,13 +20,13 @@ export default function SharedStackNav({ screenName }) {
       }}
     >
       {screenName === "Home" ? (
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="HomeScreen" component={Home} />
       ) : null}
       {screenName === "Search" ? (
-        <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="SearchScreen" component={Search} />
       ) : null}
 
-      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="ProfileScreen" component={Profile} />
     </Stack.Navigator>
   );
 }
