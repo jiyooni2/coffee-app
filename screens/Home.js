@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import { gql } from "@apollo/client";
-import { usernameVar } from "./../.history/apollo_20220219162822";
 import { useQuery } from "@apollo/client";
 import { FlatList, View } from "react-native";
 import { ActivityIndicator } from "react-native";
@@ -34,6 +33,7 @@ const SEE_COFFEE_SHOPS_QUERY = gql`
       longitude
       user {
         username
+        avatarUrl
       }
       categories {
         name
@@ -53,6 +53,7 @@ function Home() {
     }
   );
 
+  console.log(data);
   const [refreshing, setRefreshing] = useState(false);
 
   const renderShop = ({ item }) => {

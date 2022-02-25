@@ -30,7 +30,7 @@ export const logUserOut = async () => {
 };
 
 const httpLink = createHttpLink({
-  uri: "https://nomadcoffee-page.herokuapp.com/graphql",
+  uri: "https://tall-elephant-95.loca.lt/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {

@@ -6,6 +6,7 @@ import {
 } from "react-native-gesture-handler";
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import styled from "styled-components/native";
+import DismissKeyboard from "../DismissKeyboard";
 
 const Container = styled.View`
   flex: 1;
@@ -23,15 +24,8 @@ const Logo = styled.Image`
 `;
 
 export default function AuthLayout({ children }) {
-  const dismissKeyboard = () => {
-    Keyboard.dismiss();
-  };
-
   return (
-    <TouchableWithoutFeedback
-      style={{ height: "100%" }}
-      onPress={dismissKeyboard}
-    >
+    <DismissKeyboard>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -44,6 +38,6 @@ export default function AuthLayout({ children }) {
           {children}
         </Container>
       </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    </DismissKeyboard>
   );
 }
