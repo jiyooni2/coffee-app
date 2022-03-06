@@ -14,6 +14,7 @@ import { AppRegistry } from "react-native";
 import { isLoggedInVar } from "./apollo";
 import TabNav from "./navigators/TabNav";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Nav from "./navigators/Nav";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -58,7 +59,7 @@ function App() {
     <ApolloProvider client={client}>
       <StatusBar mode="auto"></StatusBar>
       <NavigationContainer>
-        <TabNav />
+        <Nav />
       </NavigationContainer>
     </ApolloProvider>
   );

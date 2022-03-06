@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import TabIcon from "../components/nav/TabIcon";
 import SharedStackNav from "./SharedStackNav";
+import { View } from "react-native";
 
 const Tabs = createBottomTabNavigator();
 
@@ -55,6 +56,25 @@ function TabNav() {
       >
         {() => <SharedStackNav screenName="Search" />}
       </Tabs.Screen>
+
+      <Tabs.Screen
+        name="Camera"
+        component={View}
+        listeners={({ navigation }) => {
+          return {
+            tabPress: (e) => {
+              e.preventDefault();
+              navigation.navigate("Upload");
+            },
+          };
+        }}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            //color = ActiveTintColor
+            <TabIcon iconName={"camera"} color={color} focused={focused} />
+          ),
+        }}
+      ></Tabs.Screen>
     </Tabs.Navigator>
   );
 }

@@ -12,12 +12,6 @@ const Container = styled.View`
   flex: 1;
   background-color: black;
 `;
-const Logo = styled.Image`
-  max-width: 50%;
-  width: 100%;
-  height: 100px;
-  margin-bottom: 20px;
-`;
 
 const Text = styled.Text`
   color: white;
@@ -62,7 +56,6 @@ function Home() {
 
   return (
     <Container>
-      <Logo resizeMode="contain" source={require("../assets/logo.png")} />
       {loading ? (
         <ActivityIndicator color="white" />
       ) : (
@@ -77,7 +70,7 @@ function Home() {
             setRefreshing(false);
           }}
           refreshing={refreshing}
-          style={{ width: "100%", backgroundColor: "red" }}
+          style={{ width: "100%" }}
           data={data?.seeCoffeeShops}
           keyExtractor={(shop) => "" + shop.id}
           renderItem={renderShop}

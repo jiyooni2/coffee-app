@@ -12,17 +12,17 @@ import { gql, useMutation } from "@apollo/client";
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount(
-    $firstName: String!
-    $lastName: String!
     $username: String!
     $email: String!
+    $name: String!
+    $location: String!
     $password: String!
   ) {
     createAccount(
-      firstName: $firstName
-      lastName: $lastName
       username: $username
       email: $email
+      name: $name
+      location: $location
       password: $password
     ) {
       ok
@@ -60,8 +60,8 @@ function CreateAccount({ navigation }) {
 
   const { register, handleSubmit, setValue, getValues, watch } = useForm();
 
-  const lastNameRef = useRef();
-  const usernameRef = useRef();
+  const nameRef = useRef();
+  const locationRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -70,10 +70,10 @@ function CreateAccount({ navigation }) {
   };
 
   useEffect(() => {
-    register("firstName", { required: true });
-    register("lastName", { required: true, minLength: 3 });
     register("username", { required: true });
-    register("email", { required: true });
+    register("email", { required: true, minLength: 3 });
+    register("name", { required: true });
+    register("location", { required: true });
     register("password", { required: true });
   }, [register]);
 
@@ -81,35 +81,35 @@ function CreateAccount({ navigation }) {
     <AuthLayout>
       <TextInput
         autoFocus
-        onSubmitEditing={() => onNext(lastNameRef)}
-        placeholder="First Name"
-        returnKeyType="next"
-        blurOnSubmit={false}
-        placeholderTextColor={"rgba(255,255,255,0.8)"}
-        onChangeText={(text) => {
-          setValue("firstName", text);
-        }}
-      />
-      <TextInput
-        ref={lastNameRef}
-        onSubmitEditing={() => onNext(usernameRef)}
-        placeholder="Last Name"
-        returnKeyType="next"
-        blurOnSubmit={false}
-        placeholderTextColor={"rgba(255,255,255,0.8)"}
-        onChangeText={(text) => {
-          setValue("lastName", text);
-        }}
-      />
-      <TextInput
-        onSubmitEditing={() => onNext(emailRef)}
-        ref={usernameRef}
-        placeholder="Username"
+        onSubmitEditing={() => onNext(nameRef)}
+        placeholder="username"
         returnKeyType="next"
         blurOnSubmit={false}
         placeholderTextColor={"rgba(255,255,255,0.8)"}
         onChangeText={(text) => {
           setValue("username", text);
+        }}
+      />
+      <TextInput
+        ref={nameRef}
+        onSubmitEditing={() => onNext(locationRef)}
+        placeholder="name"
+        returnKeyType="next"
+        blurOnSubmit={false}
+        placeholderTextColor={"rgba(255,255,255,0.8)"}
+        onChangeText={(text) => {
+          setValue("name", text);
+        }}
+      />
+      <TextInput
+        onSubmitEditing={() => onNext(emailRef)}
+        ref={locationRef}
+        placeholder="location"
+        returnKeyType="next"
+        blurOnSubmit={false}
+        placeholderTextColor={"rgba(255,255,255,0.8)"}
+        onChangeText={(text) => {
+          setValue("location", text);
         }}
       />
       <TextInput
@@ -138,10 +138,10 @@ function CreateAccount({ navigation }) {
       />
       <AuthButton
         disabled={
-          !watch("firstName") ||
-          !watch("lastName") ||
           !watch("username") ||
           !watch("email") ||
+          !watch("name") ||
+          !watch("location") ||
           !watch("password")
         }
         onPress={handleSubmit(onValid)}

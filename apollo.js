@@ -1,12 +1,10 @@
-import {
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache,
-  makeVar,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setContext } from "@apollo/client/link/context";
 import { offsetLimitPagination } from "@apollo/client/utilities";
+import { createUploadLink } from "apollo-upload-client";
+
+import { onError } from "@apollo/client/link/error";
 
 export const isLoggedInVar = makeVar(false);
 export const tokenVar = makeVar("");
@@ -29,8 +27,17 @@ export const logUserOut = async () => {
   tokenVar(null);
 };
 
-const httpLink = createHttpLink({
-  uri: "https://tall-elephant-95.loca.lt/graphql",
+const onErrorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    console.log("GraphQL errors", graphQLErrors);
+  }
+  if (networkError) {
+    console.log("Network error", networkError);
+  }
+});
+
+const uploadHttpLink = createUploadLink({
+  uri: "https://nomadcoffee-page.herokuapp.com/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -43,7 +50,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(onErrorLink).concat(uploadHttpLink),
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
